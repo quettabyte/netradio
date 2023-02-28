@@ -62,7 +62,7 @@ static struct channel_context_st *path2entry(const char *path)
 		return NULL;
 	}
 
-	me->tbf = mytbf_init(MP3_BITRATE/8,MP3_BITRATE/8*10);
+	me->tbf = mytbf_init(MP3_BITRATE/8*2,MP3_BITRATE/8*10);
 	if(me->tbf == NULL)
 	{
 		syslog(LOG_ERR,"mytbf_init():%s",strerror(errno));
