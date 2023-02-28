@@ -44,6 +44,10 @@ static void *thr_channel_snder(void *ptr)
 		{
 			syslog(LOG_ERR,"thr_chnnel(%d):sendto():%s",ent->chnid,strerror(errno));
 		}
+		else
+		{
+			syslog(LOG_DEBUG,"thr_chnnel(%d):sento() successed",ent->chnid);
+		}
 
 		sched_yield();
 	}

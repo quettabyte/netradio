@@ -44,7 +44,7 @@ static void *thr_alrm(void *p)
 				pthread_mutex_unlock(&job[i]->mut);
 			}
 		}
-
+		pthread_mutex_unlock(&mut_job);
 		sleep(1);
 	}
 }
@@ -57,13 +57,13 @@ static void module_unload(void)
 
 	for(i = 0; i < MYTBF_MAX; i++)
 		free(job[i]);
-	return;
+	return ;
 }
 
 static void module_load(void)
 {
-	int err;
-	pthread_create(&tid,NULL,thr_alrm,NULL);
+	int err = 0;
+	err = pthread_create(&tid,NULL,thr_alrm,NULL);
 	if(err)
 	{
 		fprintf(stderr,"pthread_create():%s\n",strerror(errno));
@@ -88,10 +88,8 @@ mytbf_t *mytbf_init(int cps,int burst)
 {
 	struct mytbf_st *me;
 	int pos;
-	printf("dd\n");
 	
 	pthread_once(&init_once,module_load);
-	printf("dd\n");
 
 	me = malloc(sizeof(*me));
 	if(me == NULL)
@@ -137,7 +135,7 @@ int mytbf_fetchtoken(mytbf_t *ptr,int size)
 		pthread_cond_wait(&me->cond,&me->mut);
 
 	n = min(me->token,size);
-	me->token -= size;
+	me->token -= n;
 
 	pthread_mutex_unlock(&me->mut);
 

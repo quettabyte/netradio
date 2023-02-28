@@ -3,9 +3,9 @@ CFLAGS+=-I../include/ -Wall
 all:client
 
 client:client.o
-	gcc $^ -o $@(CFLAGS)
+	gcc $^ -o $@ $(CFLAGS)
 
 clean:
-	rm -rg *.o client
+	rm *.o client
 
 

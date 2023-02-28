@@ -40,7 +40,7 @@ static struct channel_context_st *path2entry(const char *path)
 	static chnid_t curr_id = MINCHNID;
 
 	strncpy(pathstr,path,PATHSIZE);
-	strncat(pathstr,"/desc.text",PATHSIZE);
+	strcat(pathstr,"/desc.text");
 
 	fp = fopen(pathstr,"r");
 	if(fp == NULL)
@@ -62,7 +62,7 @@ static struct channel_context_st *path2entry(const char *path)
 		return NULL;
 	}
 
-	me->tbf = mytbf_init(MP3_BITRATE/8,MP3_BITRATE/8*10);
+	me->tbf = mytbf_init(MP3_BITRATE/8*2,MP3_BITRATE/8*10);
 	if(me->tbf == NULL)
 	{
 		syslog(LOG_ERR,"mytbf_init():%s",strerror(errno));
@@ -72,7 +72,7 @@ static struct channel_context_st *path2entry(const char *path)
 
 	me->desc = strdup(linebuf);
 	strncpy(pathstr,path,PATHSIZE);
-	strncat(pathstr,"/*.mp3",PATHSIZE);
+	strcat(pathstr,"/*.mp3");
 	if(glob(pathstr,0,NULL,&me->mp3glob) != 0)
 	{
 		curr_id++;
@@ -135,8 +135,8 @@ int mlib_getchnlist(struct mlib_listentry_st **result,int *resnum)
 			memcpy(channel+res->chnid,res,sizeof(*res));
 			ptr[num].chnid = res->chnid;
 			ptr[num].desc = strdup(res->desc);
+			num++;
 		}
-		num++;
 	}
 	*result = realloc(ptr,sizeof(struct mlib_listentry_st) * num);
 	if(*result == NULL)

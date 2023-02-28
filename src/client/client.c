@@ -171,6 +171,7 @@ int main(int argc,char **argv)
 		exit(1);
 	}
 
+	serveraddr_len = sizeof(serveraddr);
 	while(1)
 	{
 		len = recvfrom(sd,msg_list,MSG_LIST_MAX,0,(void *)&serveraddr,&serveraddr_len);
@@ -191,21 +192,22 @@ int main(int argc,char **argv)
 	
 	struct msg_listentry_st *pos;
 
-	for(pos = msg_list->entry; (char *)pos < ((char *)(msg_list) + len); pos = (void *)(((char *)pos) + ntohs(pos->len)))
+	for(pos = msg_list->entry; (char *)pos < (((char *)msg_list) + len); pos = (void *)(((char *)pos) + ntohs(pos->len)))
 	{
 		printf("channel %d : %s\n",pos->chnid,pos->desc);
 	}
 	free(msg_list);
 
-	while(1)
-	{
+	puts("Please enter:\n");
+	do{
 		ret = scanf("%d",&chosenid);
 		if(ret != 1)
 			exit(1);
-	}
+	}while(ret < 1);
 
 	// 收频道包，发送给子进程
 
+	fprintf(stdout,"chosenid = %d\n",ret);
 
 	msg_channel = malloc(MSG_CHANNEL_MAX);
 	if(msg_channel == NULL)
