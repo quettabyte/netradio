@@ -16,9 +16,13 @@ sudo apt-get install mgp123 -y
 ```
 
 > client
+
 > -M  --mgroup    指定多播组
+
 > -P  --port      指定接受端口
+
 > -p  --player    指定播放器
+
 > -H  --help      显示帮助
 
 > server
