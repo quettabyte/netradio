@@ -9,10 +9,29 @@
 在打印出节目单后，在命令行输入 1～5 选择频道进行播放
 
 注意：
+安装mgp123解码器
 
 ```shell
-	sudo apt-get install mgp123 -y
+
+sudo apt-get install mgp123 -y
+
 ```
+
+> client
+> -M  --mgroup    指定多播组
+> -P  --port      指定接受端口
+> -p  --player    指定播放器
+> -H  --help      显示帮助
+
+> server
+> -M       指定多播组
+> -P       指定接收端口
+> -F       前台运行
+> -D       指定媒体库位置
+> -I       指定网络设备
+> -H       显示帮助信息
+
+
 
 ## 项目分析
 
