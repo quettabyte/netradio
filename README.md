@@ -2,9 +2,9 @@
 
 将media文件夹放入/var/下。
 
-在./src/server目录下执行make，然后./server -F 指定服务器前台运行
+在./src/server目录下执行make，然后`./server -F` 指定服务器前台运行
 
-在./src/client目录下执行make，然后./client
+在./src/client目录下执行make，然后`./client`
 
 在打印出节目单后，在命令行输入 1～5 选择频道进行播放
 
@@ -12,9 +12,7 @@
 安装mgp123解码器
 
 ```shell
-
 sudo apt-get install mgp123 -y
-
 ```
 
 > client
