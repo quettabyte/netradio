@@ -2,7 +2,7 @@
 #
 
 
-git add .
+git add --all .
 git commit -m "submit something"
 
 /usr/bin/expect << eof
