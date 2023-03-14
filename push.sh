@@ -11,7 +11,7 @@ spawn git push -u origin master
 expect "//gitee.com':"
 send "cokeice\n"
 expect "@gitee.com':"
-send "3w.CNGNWLF.com\n
+send "3w.CNGNWLF.com\n"
 expect eof
 eof
 
