@@ -1,0 +1,28 @@
+name: Mirror to Gitee repository
+
+on: [ push, delete, create ]
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Config private key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - name: Clone repository and push
+        env:
+          SRC_REPO: "https://github.com/quettabyte/netradio.git"
+          DIST_REPO: "git@gitee.com:quettabyte/netradio.git"
+        run: |
+          git config --global user.name "quettabyte"
+          git config --global user.email "quettabyte@163.com"
+          git clone --mirror "$SRC_REPO"
+          cd `basename "$SRC_REPO"`
+          git remote set-url --push origin "$DIST_REPO"
+          git push --mirror
