@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone repository and push
         env:
-          SRC_REPO: "https://github.com/quettabyte/netradio.git"
+          SRC_REPO: "git@github.com:quettabyte/netradio.git"
           DIST_REPO: "git@gitee.com:quettabyte/netradio.git"
         run: |
           git config --global user.name "quettabyte"
